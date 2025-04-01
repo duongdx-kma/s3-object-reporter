@@ -99,3 +99,32 @@ from(bucket: "monitoring")
   |> filter(fn: (r) => r._measurement == "cpu_usage")' \
   --org duongdx --token my-secret-token
 ```
+
+# IV. Deploy to lambda function:
+
+### 1. build artifact:
+```bash
+# build artifact
+GOOS=linux GOARCH=arm64 go build -o main run.go
+```
+
+### 2. zip code:
+```bash
+zip function.zip main
+```
+
+### 3. create lambda function:
+```bash
+aws lambda create-function --function-name myFunction \
+  --runtime provided.al2023 \
+  --handler bootstrap \
+  --architectures arm64 \
+  --role arn:aws:iam::111122223333:role/lambda-ex \
+  --zip-file fileb://function.zip
+```
+
+### 4. invoke function:
+```bash
+aws lambda invoke --function-name myFunction response.json
+cat response.json
+```

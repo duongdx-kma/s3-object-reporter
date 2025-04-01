@@ -9,16 +9,16 @@ import (
 	"s3-object-reporter/notify"
 	"s3-object-reporter/reports"
 
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/joho/godotenv"
 )
 
-func main() {
+// Handler function for AWS Lambda
+func handler(ctx context.Context) (string, error) {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-
-	ctx := context.Background()
 
 	roleArn := os.Getenv("AWS_ROLE_ARN")
 	bucketName := os.Getenv("S3_BUCKET_NAME")
@@ -49,4 +49,10 @@ func main() {
 	}
 
 	fmt.Println("INFO: Report successfully processed and notified.")
+
+	return "Report successfully processed and notified", nil
+}
+
+func main() {
+	lambda.Start(handler)
 }

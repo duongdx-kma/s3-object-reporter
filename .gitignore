@@ -2,3 +2,5 @@ config.json
 *.swp
 .env
 .idea
+*.zip
+main
