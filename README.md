@@ -2,7 +2,11 @@
 ### 1. install go and make sure go1.22
 
 ```bash
-export GO_HOME=/usr/local/1.22
+wget https://go.dev/dl/go1.22.12.linux-amd64.tar.gz -O go1.22.12.tar.gz
+tar -C /opt -xzf go1.22.12.tar.gz
+
+
+export GO_HOME=/opt/go
 export PATH=$GO_HOME/bin:$PATH
 
 go version
@@ -11,12 +15,10 @@ go version go1.1.22 linux/amd64
 ### 2. install dependence and build binary file:
 ```bash
 # install dependence
-cd kibanaler/src
 go mod tidy
 
 # build binary file
-cd kibanaler/src
-go build -o ../bin/run .
+go build -o run run.go
 ```
 
 # II. GETTING STARTED
