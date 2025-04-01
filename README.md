@@ -105,12 +105,12 @@ from(bucket: "monitoring")
 ### 1. build artifact:
 ```bash
 # build artifact
-GOOS=linux GOARCH=arm64 go build -o main run.go
+GOOS=linux GOARCH=arm64 go build -o bootstrap run.go
 ```
 
 ### 2. zip code:
 ```bash
-zip function.zip main
+zip function.zip bootstrap .env
 ```
 
 ### 3. create lambda function:
